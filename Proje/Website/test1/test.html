@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js">
+import * as tf from '@tensorflow/tfjs';
+const model = await tf.loadLayersModel('model.json');
+
+const imageGet = require('get-image-data');
+async function loadLocalImage(filename) {
+  return new Promise((res, rej) => {
+    imageGet(filename, (err, info) => {
+      if (err) {
+        rej(err);
+        return;
+      }
+      const image = tf.fromPixels(info.data)
+      console.log(image, '127');
+      res(image);
+    });
+  });
+}
+
+const example = tf.fromPixels(loadLocalImage('predict.jpg'));  // for example
+model.predict(example).print();
+</script>
+</body>
+</html>

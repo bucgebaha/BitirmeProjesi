@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "opencv-facecrop": "^0.0.5"
+  }
+}
